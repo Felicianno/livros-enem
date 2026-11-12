@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Livros para o ENEM</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--tx:#14163a;--mut:#5b6080;--bl:#1d1de0;--cy:#7be8f0;--tile:#d8f5f8;--bd:#e1e5f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0e1f;--card:#171936;--tx:#eef0ff;--mut:#a3a8d0;--tile:#1f2650;--bd:#2a2d57}}
+:root[data-theme="dark"]{--bg:#0d0e1f;--card:#171936;--tx:#eef0ff;--mut:#a3a8d0;--tile:#1f2650;--bd:#2a2d57}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+button,input{font:inherit}
+.hero{background:var(--bl);color:#fff;overflow:hidden}
+.hi{max-width:1080px;margin:0 auto;padding:40px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.hi h1{font-size:clamp(2.2rem,7vw,3.8rem);line-height:1.05;margin:0 0 12px;color:var(--cy);font-weight:800}
+.hi h1 b{color:#fff;display:block}
+.hi p{margin:0 0 20px;max-width:420px;opacity:.9}
+.btn{border:2px solid #fff;background:transparent;color:#fff;padding:8px 20px;border-radius:999px;cursor:pointer;font-weight:600;margin-right:8px}
+.blob{width:min(260px,60vw);aspect-ratio:1;background:var(--cy);border-radius:58% 42% 50% 50%;display:grid;place-items:center;font-size:6rem}
+.w{max-width:1080px;margin:0 auto;padding:24px 20px 56px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 14px;border-radius:999px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--bl);color:#fff;border-color:var(--bl)}
+.top{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+input[type=search]{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx)}
+.tot{color:var(--mut);font-size:.9rem}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.t{background:var(--tile);height:130px;display:grid;place-items:center;font-size:3.4rem}
+.bd{position:absolute;top:10px;left:10px;background:#6ee7a6;color:#053b20;font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.b{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1;text-align:center}
+.b h3{margin:0 0 2px;font-size:1rem}
+.b .a{color:var(--mut);font-size:.85rem;margin:0 0 8px}
+.b .n{font-size:.88rem;margin:0 0 14px;flex:1}
+.go{background:var(--bl);color:#fff;border:0;border-radius:999px;padding:8px 22px;cursor:pointer;font-weight:600;align-self:center}
+.go.ok{background:#16a34a}
+.pb{height:4px;background:var(--bd);border-radius:4px;margin:12px 0 4px;overflow:hidden}
+.pb i{display:block;height:100%;width:0;background:#16a34a}
+.pc{font-size:.68rem;color:var(--mut);font-weight:700}
+.qr{margin-top:36px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:24px;text-align:center}
+.qr .go{padding:10px 22px}
+#q{display:flex;justify-content:center;margin:16px 0}
+#q img,#q canvas{background:#fff;padding:10px;border-radius:8px}
+.nt{color:var(--mut);font-size:.82rem;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hi">
+<div><h1>Paixão por<b>ler.</b></h1><p>Estude de graça: indicações de livros para o ENEM, com literatura, história, matemática e muito mais.</p>
+<button class="btn" id="st">Começar</button><button class="btn" id="qb">QR Code</button></div>
+<div class="blob">📚</div>
+</div></div>
+<div class="w">
+<div class="bar" id="tabs"></div>
+<div class="top"><input type="search" id="s" placeholder="Buscar por título, autor ou tema…" aria-label="Buscar"><span class="tot" id="tot"></span></div>
+<div class="g" id="l"></div>
+<div class="qr" id="qr"><strong>Compartilhe esta página</strong>
+<div id="q"></div>
+<button class="go" id="b">Gerar QR Code</button></div>
+<p class="nt">Lista de sugestões. O ENEM não tem lista oficial de leituras obrigatórias: o que cai é interpretação, contexto e aplicação. Marque como lido para acompanhar seu progresso neste aparelho.</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+var E={"Literatura":"📖","História":"🏛️","Cálculos":"🧮","Redação":"✍️","Filosofia":"🤔","Ciências":"🔬","Geografia":"🌍"};
+var D=[
+["Literatura","Memórias Póstumas de Brás Cubas","Machado de Assis","Realismo: ironia e crítica à elite do século XIX."],
+["Literatura","Dom Casmurro","Machado de Assis","Narrador pouco confiável e a dúvida sobre Capitu."],
+["Literatura","O Alienista","Machado de Assis","Sátira sobre ciência, poder e loucura."],
+["Literatura","O Cortiço","Aluísio Azevedo","Naturalismo: o meio social molda as pessoas."],
+["Literatura","Vidas Secas","Graciliano Ramos","Seca, desigualdade e linguagem enxuta do Modernismo."],
+["Literatura","Capitães da Areia","Jorge Amado","Infância marginalizada e denúncia social."],
+["Literatura","Quarto de Despejo","Carolina Maria de Jesus","Diário sobre fome e pobreza na favela."],
+["Literatura","Macunaíma","Mário de Andrade","Identidade nacional e ruptura modernista."],
+["Literatura","Iracema","José de Alencar","Romantismo indianista e mito nacional."],
+["Literatura","A Hora da Estrela","Clarice Lispector","Exclusão social e reflexão sobre o ato de narrar."],
+["Literatura","Triste Fim de Policarpo Quaresma","Lima Barreto","Pré-modernismo: crítica ao nacionalismo ingênuo."],
+["Literatura","Grande Sertão: Veredas","Guimarães Rosa","Linguagem inventiva e o sertão como universo."],
+["Literatura","Auto da Compadecida","Ariano Suassuna","Teatro popular nordestino, humor e crítica social."],
+["Literatura","Os Sertões","Euclides da Cunha","Guerra de Canudos entre literatura e história."],
+["Literatura","1984","George Orwell","Vigilância, controle e manipulação da linguagem."],
+["História","Raízes do Brasil","Sérgio Buarque de Holanda","Formação social brasileira e o homem cordial."],
+["História","Casa-Grande & Senzala","Gilberto Freyre","Sociedade colonial, escravidão e miscigenação."],
+["História","Formação do Brasil Contemporâneo","Caio Prado Júnior","A economia e a sociedade coloniais."],
+["História","História do Brasil","Boris Fausto","Visão geral da Colônia à República."],
+["História","Brasil: Uma Biografia","Lilia Schwarcz e Heloisa Starling","A história do país em linguagem acessível."],
+["História","O Povo Brasileiro","Darcy Ribeiro","A formação e o sentido do Brasil."],
+["História","Cidadania no Brasil","José Murilo de Carvalho","Como os direitos foram conquistados aqui."],
+["História","1808","Laurentino Gomes","A chegada da corte portuguesa e suas consequências."],
+["História","A Era dos Extremos","Eric Hobsbawm","O breve século XX: guerras, crise e Guerra Fria."],
+["História","Sapiens","Yuval Noah Harari","Panorama da história da humanidade."],
+["Cálculos","Fundamentos de Matemática Elementar","Gelson Iezzi e outros","Coleção de base com teoria e exercícios graduados."],
+["Cálculos","Matemática: Contexto & Aplicações","Luiz Roberto Dante","Conteúdo do Ensino Médio com aplicações do dia a dia."],
+["Cálculos","Matemática Completa","Giovanni e Bonjorno","Teoria e exercícios de todo o Ensino Médio."],
+["Cálculos","Matemática: Ciência e Aplicações","Gelson Iezzi e outros","Coleção didática para o Ensino Médio."],
+["Cálculos","Matemática","Manoel Paiva","Coleção com muitos exercícios de vestibular."],
+["Cálculos","A Conquista da Matemática","Giovanni e Castrucci","Reforço de frações, porcentagem e proporção."],
+["Cálculos","O Homem que Calculava","Malba Tahan","Problemas em forma de conto para gostar de raciocinar."],
+["Redação","Nova Gramática do Português Contemporâneo","Celso Cunha e Lindley Cintra","Referência clássica de gramática."],
+["Redação","Comunicação em Prosa Moderna","Othon M. Garcia","Clássico sobre clareza e organização do texto."],
+["Redação","Português: Linguagens","Cereja e Magalhães","Gramática, literatura e produção de texto."],
+["Filosofia","Convite à Filosofia","Marilena Chauí","Introdução aos grandes temas filosóficos."],
+["Filosofia","O Mundo de Sofia","Jostein Gaarder","História da filosofia em forma de romance."],
+["Filosofia","Modernidade Líquida","Zygmunt Bauman","Relações e instituições na sociedade atual."],
+["Filosofia","O Príncipe","Nicolau Maquiavel","Poder, política e Estado."],
+["Filosofia","Sociologia para Jovens do Século XXI","Oliveira e Costa","Conceitos de sociologia para o Ensino Médio."],
+["Ciências","Os Fundamentos da Física","Ramalho, Nicolau e Toledo","Coleção clássica para estudar Física."],
+["Ciências","Química","Ricardo Feltre","Coleção tradicional de Química."],
+["Ciências","Biologia","Amabis e Martho","Coleção de Biologia para o Ensino Médio."],
+["Ciências","Primavera Silenciosa","Rachel Carson","Marco do pensamento ambiental."],
+["Ciências","Uma Breve História do Tempo","Stephen Hawking","Cosmologia explicada para leigos."],
+["Geografia","Por uma Outra Globalização","Milton Santos","Crítica à globalização e seus efeitos."],
+["Geografia","O Espaço do Cidadão","Milton Santos","Território, consumo e cidadania."],
+["Geografia","Atlas Geográfico Escolar","IBGE","Mapas e dados do Brasil e do mundo."]
+];
+var C=["Todos"].concat(Object.keys(E)),cur="Todos",R={},T=document.getElementById("tabs"),L=document.getElementById("l"),S=document.getElementById("s");
+try{R=JSON.parse(localStorage.getItem("lidos")||"{}")}catch(e){R={}}
+function save(){try{localStorage.setItem("lidos",JSON.stringify(R))}catch(e){}}
+function esc(x){return x.replace(/[&<>"]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]})}
+function tabs(){T.innerHTML="";C.forEach(function(c){var b=document.createElement("button");b.className="tab";b.textContent=c;b.setAttribute("aria-pressed",c===cur);b.onclick=function(){cur=c;tabs();draw()};T.appendChild(b)})}
+function draw(){var q=S.value.toLowerCase(),n=0;
+L.innerHTML=D.map(function(d,i){return[d,i]}).filter(function(p){var d=p[0];return(cur==="Todos"||d[0]===cur)&&d.join(" ").toLowerCase().indexOf(q)>-1}).map(function(p){var d=p[0],i=p[1],r=R[i];
+return'<div class="c"><span class="bd">'+d[0]+'</span><div class="t">'+E[d[0]]+'</div><div class="b"><h3>'+esc(d[1])+'</h3><p class="a">'+esc(d[2])+'</p><p class="n">'+esc(d[3])+'</p><button class="go'+(r?' ok':'')+'" data-i="'+i+'">'+(r?'Lido ✓':'Marcar como lido')+'</button><div class="pb"><i style="width:'+(r?100:0)+'%"></i></div><span class="pc">'+(r?100:0)+'% COMPLETO</span></div></div>'}).join("")||"<p>Nada encontrado.</p>";
+for(var k in R)if(R[k])n++;
+document.getElementById("tot").textContent=n+" de "+D.length+" lidos"}
+L.onclick=function(e){var i=e.target.getAttribute&&e.target.getAttribute("data-i");if(i!==null&&i!==undefined){R[i]=!R[i];save();draw()}};
+S.oninput=draw;tabs();draw();
+document.getElementById("st").onclick=function(){T.scrollIntoView({behavior:"smooth"})};
+document.getElementById("qb").onclick=function(){document.getElementById("qr").scrollIntoView({behavior:"smooth"})};
+document.getElementById("b").onclick=function(){var q=document.getElementById("q");q.innerHTML="";try{new QRCode(q,{text:location.href.split("#")[0],width:200,height:200})}catch(e){q.textContent="Não foi possível gerar o QR Code."}};
+</script>
+</body>
+</html>
